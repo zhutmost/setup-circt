@@ -28227,6 +28227,7 @@ function main() {
             const targetBinPath = path.join(extractedPath, `firtool-${circtVersion}`, 'bin');
             core.info(`Update PATH ... ${targetBinPath}`);
             core.addPath(targetBinPath);
+            core.exportVariable('CHISEL_FIRTOOL_PATH', targetBinPath);
             yield exec.exec('firtool', ['--version']);
         }
         catch (error) {

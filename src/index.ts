@@ -22,6 +22,7 @@ async function main(): Promise<void> {
 
     core.info(`Update PATH ... ${targetBinPath}`)
     core.addPath(targetBinPath)
+    core.exportVariable('CHISEL_FIRTOOL_PATH', targetBinPath)
 
     await exec.exec('firtool', ['--version'])
   } catch (error: unknown) {
