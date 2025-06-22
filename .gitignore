@@ -97,7 +97,6 @@ next-env.d.ts
 
 # Nuxt.js build / generate output
 .nuxt
-dist
 
 # Gatsby files
 .cache/
