@@ -37,7 +37,7 @@ jobs:
       - name: Get firtool version
         id: version-check
         run: |
-          circt_version=$(firtool --version)
+          circt_version=$(firtool --version | tail -n 1 | sed 's/^CIRCT firtool-//')
           echo "Detected version: $circt_version"
           echo "EXPECTED_VERSION=${{ matrix.expected_version || matrix.version }}" >> $GITHUB_ENV
           echo "DETECTED_VERSION=$circt_version" >> $GITHUB_ENV
