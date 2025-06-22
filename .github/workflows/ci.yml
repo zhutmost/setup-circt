@@ -1,0 +1,54 @@
+name: "Test"
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - name: default
+            expected_version: '1.122.0'
+
+          - name: default-linux-shared
+            target-package: 'circt-full-shared-linux-x64'
+            expected_version: '1.122.0'
+
+          - name: version-specific
+            version: '1.121.0'
+
+    name: "Test (${{ matrix.name }})"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up CIRCT/firtool
+        uses: ./
+        with:
+          ${{ matrix.version && 'version' || 'dummy-param' }}: ${{ matrix.version }}
+          ${{ matrix.target-package && 'target-package' || 'dummy-param' }}: ${{ matrix.target-package }}
+        id: circt-setup
+
+      - name: Get firtool version
+        id: version-check
+        run: |
+          circt_version=$(firtool --version)
+          echo "Detected version: $circt_version"
+          echo "EXPECTED_VERSION=${{ matrix.expected_version || matrix.version }}" >> $GITHUB_ENV
+          echo "DETECTED_VERSION=$circt_version" >> $GITHUB_ENV
+
+          echo "circt_version=$circt_version" >> $GITHUB_OUTPUT
+
+      - name: Verify firtool version
+        run: |
+          if [ "$DETECTED_VERSION" != "$EXPECTED_VERSION" ]; then
+            echo "❌ Version mismatch! Expected: $EXPECTED_VERSION, Got: $DETECTED_VERSION"
+            exit 1
+          else
+            echo "✅ Version verified: $DETECTED_VERSION"
+          fi

@@ -1,0 +1,28 @@
+name: 'Setup CIRCT/firtool'
+description: 'Setup CIRCT/firtool for Chisel projects.'
+author: 'Haozhe Zhu'
+inputs:
+  version:
+    description: 'The firtool version to be installed. Use the 1.122.0 if no version is specified'
+    required: false
+    default: '1.122.0'
+  target-package:
+    description: |
+      Type of CIRCT package to install.
+      Options:
+        - firrtl-bin-linux-x64 (default)
+        - firrtl-bin-macos-x64
+        - firrtl-bin-windows-x64
+        - circt-full-shared-linux-x64
+        - circt-full-shared-macos-x64
+        - circt-full-static-linux-x64
+        - circt-full-static-macos-x64
+        - circt-full-static-windows-x64
+    required: false
+    default: 'firrtl-bin-linux-x64'
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
+branding:
+  icon: 'zap'
+  color: 'red'
