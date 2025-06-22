@@ -28219,12 +28219,12 @@ function main() {
     return __awaiter(this, void 0, void 0, function* () {
         const installPath = path.join(process.cwd(), '.__install__/circt');
         try {
-            core.info('Installing ...');
+            core.info('Installation begins ...');
             const circtVersion = core.getInput('version');
             const circtPackage = core.getInput('target-package');
             const downloadPath = yield tc.downloadTool(`https://github.com/llvm/circt/releases/download/firtool-${circtVersion}/${circtPackage}.tar.gz`);
             const extractedPath = yield tc.extractTar(downloadPath, installPath);
-            const targetBinPath = path.join(extractedPath, 'bin');
+            const targetBinPath = path.join(extractedPath, `firtool-${circtVersion}`, 'bin');
             core.info(`Update PATH ... ${targetBinPath}`);
             core.addPath(targetBinPath);
             yield exec.exec('firtool', ['--version']);

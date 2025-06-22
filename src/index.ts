@@ -9,7 +9,7 @@ async function main(): Promise<void> {
   const installPath = path.join(process.cwd(), '.__install__/circt')
 
   try {
-    core.info('Installing ...')
+    core.info('Installation begins ...')
 
     const circtVersion: string = core.getInput('version')
     const circtPackage: string = core.getInput('target-package')
@@ -18,7 +18,7 @@ async function main(): Promise<void> {
       `https://github.com/llvm/circt/releases/download/firtool-${circtVersion}/${circtPackage}.tar.gz`
     )
     const extractedPath = await tc.extractTar(downloadPath, installPath)
-    const targetBinPath = path.join(extractedPath, 'bin')
+    const targetBinPath = path.join(extractedPath, `firtool-${circtVersion}`, 'bin')
 
     core.info(`Update PATH ... ${targetBinPath}`)
     core.addPath(targetBinPath)
