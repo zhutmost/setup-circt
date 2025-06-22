@@ -30,8 +30,8 @@ jobs:
       - name: Set up CIRCT/firtool
         uses: ./
         with:
-          ${{ matrix.version && 'version' || 'dummy-param' }}: ${{ matrix.version }}
-          ${{ matrix.target-package && 'target-package' || 'dummy-param' }}: ${{ matrix.target-package }}
+          ${{ matrix.version && 'version' || 'dummy-param-1' }}: ${{ matrix.version }}
+          ${{ matrix.target-package && 'target-package' || 'dummy-param-2' }}: ${{ matrix.target-package }}
         id: circt-setup
 
       - name: Get firtool version
