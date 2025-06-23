@@ -22,6 +22,8 @@ async function main(): Promise<void> {
 
     core.info(`Update PATH ... ${targetBinPath}`)
     core.addPath(targetBinPath)
+
+    core.info(`Set environment variable CHISEL_FIRTOOL_PATH ... ${targetBinPath}`)
     core.exportVariable('CHISEL_FIRTOOL_PATH', targetBinPath)
 
     await exec.exec('firtool', ['--version'])
